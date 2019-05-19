@@ -11,12 +11,12 @@ class Application
     private function _set_reporting(){
         if(DEBUG) {
             error_reporting(E_ALL);
-            init_set('display_errors', 1);
+            ini_set('display_errors', 1);
         }else{
             error_reporting(0);
-            init_set('display_errors', 0);
-            init_set('log_errors', 1);
-            init_set('error_log', ROOT . DS . 'tmp' . DS . 'logs' . DS . 'errors.log');
+            ini_set('display_errors', 0);
+            ini_set('log_errors', 1);
+            ini_set('error_log', ROOT . DS . 'tmp' . DS . 'logs' . DS . 'errors.log');
         }
     }
 
