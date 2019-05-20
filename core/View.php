@@ -19,7 +19,7 @@ class View
         $viewString = implode(DS, $viewArray);
         if(file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')){
             include(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php');
-            // include(ROOT . DS . 'app' . DS . 'view' . DS . 'layouts' . DS . $this->_layout . '.php');
+            include(ROOT . DS . 'app' . DS . 'views' . DS . 'layouts' . DS . $this->_layout . '.php');
         }else {
             die('The view \"' . $viewName . '\" does not exist.');
         }
@@ -31,9 +31,9 @@ class View
             return $this->_head;
         }elseif($type == 'body'){
             return $this->_body;
-        }else{
-            return false;
         }
+
+        return false;
     }
 
     public function start($type)
