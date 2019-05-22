@@ -1,0 +1,19 @@
+{
+  "name": "gullmannewmvc",
+  "version": "0.0.1",
+  "description": "Testing gulp and light and dark theme with localstorage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrGullman/gullmanNewMVC.git"
+  },
+  "author": "Jesper Gullman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MrGullman/gullmanNewMVC/issues"
+  },
+  "homepage": "https://github.com/MrGullman/gullmanNewMVC#readme"
+}

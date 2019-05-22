@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?= $this->siteTitle(); ?></title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<?php PROOT ?>assets/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="<?php PROOT ?>assets/css/custom.css" media="screen" title="no title" charset="utf-8">
-    <script src="<?php PROOT ?>assets/js/jQuery-3.4.1.min.js"></script>
-    <script src="<?php PROOT ?>assets/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="<?= PROOT ?>assets/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="<?= PROOT ?>assets/css/custom.css" media="screen" title="no title" charset="utf-8">
+    <script src="<?= PROOT ?>assets/js/jQuery-3.4.1.min.js"></script>
+    <script src="<?= PROOT ?>assets/js/bootstrap.min.js"></script>
 
     <?php echo $this->content('head'); ?>
   </head>
