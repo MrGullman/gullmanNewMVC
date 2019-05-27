@@ -18,6 +18,11 @@ define('PROOT', '/gullmanNewMVC/');     // Set this to '/' for a live server.
 
 define('SITE_TITLE', 'Gullman MVC Framework');  // This will be used if no site title is set.
 
+define('CURRENT_USER_SESSION_NAME', 'asdfj54k3kFF45534ffdfgERe67433RfgDFg'); // Session name fore logged in user
+define('REMEMBER_ME_COOKIE_NAME', 'HHDHJDFDrddfh343554gGDDSas');    // Cookie name for logged in user remember me
+define('REMEMBER_ME_COOKIE_EXPIRY', 2592000);    // Time in seconds for remember me cookie to live (30 days)
+
+
 
 
 ?>

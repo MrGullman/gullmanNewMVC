@@ -132,7 +132,6 @@ class DB {
         if(!$this->query($sql, $values)->error()){
             return true;
         }
-
         return false;
     }
 

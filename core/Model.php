@@ -7,7 +7,7 @@ class Model {
     protected $_softDelete = false;
     protected $_columnNames = [];
 
-    public function __construct() {
+    public function __construct($table) {
         $this->_db = DB::getInstance();
         $this->_table = $table;
         $this->_setTableColumns();
@@ -17,8 +17,9 @@ class Model {
     protected function _setTableColumns(){
         $columns = $this->get_columns();
         foreach($columns as $column){
+            $columnName = $column->Field;
             $this->_columnNames[] = $column->Field;
-            $this->{$columnNames} = null;
+            $this->{$columnName} = null;
         }
     }
 
@@ -42,14 +43,19 @@ class Model {
     }
 
     public function findFirst($params = []){
-        $resultsQuery = $this->_db->findFirst($this->_table, $params);
+
+        $resultQuery = $this->_db->findFirst($this->_table, $params);
+
         $result = new $this->_modelName($this->_table);
-        $result->populateObjData($resultsQuery);
+
+        if($resultQuery){
+            $result->populateObjData($resultQuery);
+        }
         return $result;
     }
 
     public function findById($id){
-        return $this->findFirst(['condition' => "id = ?", 'bind' => [$id]]);
+        return $this->_db->findFirst(['conditions' => "id = ?", 'bind' => [$id]]);
     }
 
     public function save(){
@@ -73,7 +79,7 @@ class Model {
     }
 
     public function update($id, $fields){
-        if(empty($ields || $id = '')) return false;
+        if(empty($fields || $id = '')) return false;
 
         return $this->_db->update($this->_table, $fields);
     }
@@ -94,7 +100,7 @@ class Model {
 
     public function data(){
         $data = new stdClass();
-        foreach($this->columnNames as $column){
+        foreach($this->_columnNames as $column){
             $data->column = $this->column;
         }
         return $data;

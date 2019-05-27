@@ -37,7 +37,6 @@ class Home extends Controller
 
     public function indexAction(){
         $db = DB::getInstance();
-
         $this->view->render('home/index');
     }
 }
