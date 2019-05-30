@@ -14,7 +14,6 @@ class Validate {
         $this->_errors = [];
         foreach($items as $item => $rules){
             $item = Input::sanitize($item);
-
             $display = $rules['display'];
             foreach($rules as $rule => $rule_value){
                 $value = Input::sanitize(trim($source[$item]));
@@ -43,7 +42,7 @@ class Validate {
                             break;
 
                         case 'unique' :
-                            $check = $this->_db->query("SELECT {$item} FROM {$rule_value} WHERE {$item} = ?", $value);
+                            $check = $this->_db->query("SELECT {$item} FROM {$rule_value} WHERE {$item} = ?", [$value]);
                             if($check->count()){
                                 $this->addError(["{$display} already exists. Please chose anouther {$display}", $value]);
                             }
