@@ -32,6 +32,9 @@
         <div class="pull-right">
             <input type="submit" class="btn btn-primary btn-large" value="Register">
         </div>
+        <div class="text-left">
+                <a href="<?=PROOT?>register/login" class="text-primary">Login</a>
+            </div>
     </form>
 </div>
 <?php $this->end(); ?>

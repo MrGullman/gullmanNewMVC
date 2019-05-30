@@ -53,8 +53,17 @@ class Users extends Model {
             $user_agent = Session::uagent_no_version();
             Cookie::set(REMEMBER_ME_COOKIE_NAME, $hash, REMEMBER_ME_COOKIE_EXPIRY);
             $fields = ['session'=>$hash, 'user_agent'=>$user_agent, 'user_id'=>$this->id];
+
+            // if($this->_db->query("DELETE FROM user_session WHERE user_id = ? AND user_agent = ?", [$this->id, $user_agent])){
+            //     $this->_db->query("DELETE FROM user_session WHERE user_id = ? AND user_agent = ?", [$this->id, $user_agent]);
+            // }
             $this->_db->query("DELETE FROM user_session WHERE user_id = ? AND user_agent = ?", [$this->id, $user_agent]);
             $this->_db->insert('user_sessions', $fields);
+            // $this->_db->query("DELETE FROM user_sessions WHERE user_id = ? AND user_agent = ?", [$this->id, $user_agent]);
+            // $us = new UserSessions();
+            // dnd($fields);
+            // $us->assign($fields);
+            // $us->save();
         }
     }
 
@@ -88,6 +97,13 @@ class Users extends Model {
         $this->deleted = 0;
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         $this->save();
+    }
+
+    public function acls(){
+        if(empty($this->acl)){
+            return [];
+        }
+        return json_decode($this->acl, true);
     }
 }
 
