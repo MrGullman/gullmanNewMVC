@@ -13,6 +13,14 @@ class ContactsController extends Controller {
         $this->view->contacts = $contacts;
         $this->view->render('contacts/index');
     }
+
+    public function addAction(){
+        $contact = new Contacts();
+        $this->view->contact = $contact;
+        $this->view->displayErrors = "";
+        $this->view->postAction = PROOT . 'contacts' . DS . 'add';
+        $this->view->render('contacts/add');
+    }
 }
 
 
