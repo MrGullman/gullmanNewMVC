@@ -73,7 +73,7 @@ class View
     }
 
     public function partial($group, $partial){
-        include ROOT . DS . 'app' . DS . 'views' . DS . $group . 'partials' . DS . $partial . '.php';
+        include ROOT . DS . 'app' . DS . 'views' . DS . $group . DS . 'partials' . DS . $partial . '.php';
     }
 }
 
