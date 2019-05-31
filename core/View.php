@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class View 
+class View
 {
     protected $_head;
     protected $_body;
@@ -10,7 +10,7 @@ class View
 
     public function __construct()
     {
-        
+
     }
 
     public function render($viewName)
@@ -66,6 +66,14 @@ class View
     public function setLayout($path)
     {
         $this->_layout = $path;
+    }
+
+    public function insert($path){
+        include ROOT . DS . 'app' . DS . 'views' . DS . $path . '.php';
+    }
+
+    public function partial($group, $partial){
+        include ROOT . DS . 'app' . DS . 'views' . DS . $group . 'partials' . DS . $partial . '.php';
     }
 }
 
