@@ -10,8 +10,23 @@ class DB {
     private $_lastInsertID = null;
 
     private function __construct(){
+
+        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHAR;
+        // $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'); // Optional for testing
+        // $options = array(
+        //     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+        // );
+        // $options = array(
+        //     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'
+        //     // PDO::ATTR_PERSISTENT => true,
+        //     // PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        // );
+
         try {
-            $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHAR, DB_USER, DB_PASS);
+            $this->_pdo = new PDO($dsn, DB_USER, DB_PASS);
+            // $this->_pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC ); // Optional for testing
+            // $this->_pdo->exec("SET CHARACTER SET utf8mb4");  // Optional for testing
+            // $this->_pdo->exec("set names utf8mb4");  // Optional for testing
             // $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             // $this->_pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         } catch (PDOException $e) {
@@ -40,7 +55,6 @@ class DB {
             }
 
             if($this->_query->execute()){
-
                 $this->_result = $this->_query->fetchAll(PDO::FETCH_OBJ);
                 $this->_count = $this->_query->rowCount();
                 $this->_lastInsertID = $this->_pdo->lastInsertId();
@@ -130,7 +144,7 @@ class DB {
         $valueString = rtrim($valueString, ',');
 
         $sql = "INSERT INTO {$table} ({$fieldString}) VALUES ({$valueString})";
-
+        // dnd($values);
         if(!$this->query($sql, $values)->error()){
             return true;
         }

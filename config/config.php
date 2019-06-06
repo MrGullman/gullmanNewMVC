@@ -5,10 +5,10 @@ define('DEBUG', true);
 
 // Database Settings
 define('DB_HOST', '127.0.0.1'); // Database host ***Use IP address to avoid DNS lookup.
-define('DB_NAME', 'gullmanmvc'); // Database name.
+define('DB_NAME', 'gmvc'); // Database name.
 define('DB_USER', 'root');  // Database user.
 define('DB_PASS', '1234');  // Database password.
-define('DB_CHAR', 'utf8mb4'); // Database charset.
+define('DB_CHAR', 'utf8'); // Database charset.
 
 // MVC Settings
 define('DEFAULT_CONTROLLER', 'Home');   // Default controller if none is set.
@@ -25,6 +25,7 @@ define('REMEMBER_ME_COOKIE_EXPIRY', 2592000);    // Time in seconds for remember
 
 define('ACCESS_RESTRICTED', 'Restricted');  // Controller name for the restricted restrict.
 
+mb_internal_encoding('UTF-8');
 
 
 

@@ -3,7 +3,7 @@
 class Input {
 
     public static function sanitize($dirty){
-        return htmlentities($dirty, ENT_QUOTES, 'utf-8');
+        return htmlspecialchars($dirty, ENT_COMPAT, 'UTF-8');
     }
 
     public static function get($input){

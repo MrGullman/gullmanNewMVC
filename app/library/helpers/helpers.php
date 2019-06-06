@@ -8,7 +8,9 @@ function dnd($data){
 }
 
 function sanitize($dirty){
-    return htmlentities($dirty, ENT_QUOTES, 'utf-8');
+    // return htmlentities($dirty, ENT_QUOTES, 'utf-8');
+    return htmlspecialchars($dirty, ENT_COMPAT, 'UTF-8');
+    // return $dirty;
 }
 
 function currentUser() {
