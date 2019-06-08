@@ -2,7 +2,7 @@
 <?php $this->end(); ?>
 <?php $this->start('body'); ?>
     <h2 class="text-center">My Contacts</h2>
-    <table class="table table-striped table-condensed table-bordered">
+    <table class="table table-striped table-condensed table-bordered table-hover">
         <thead>
             <th>Name</th>
             <th>Email</th>
@@ -15,13 +15,20 @@
         <tbody>
             <?php foreach($this->contacts as $contact) : ?>
                 <tr>
-                    <td><?= $contact->displayName(); ?></td>
+                    <td><a href="<?=PROOT?>/contacts/details/<?=$contact->id?>"><?= $contact->displayName(); ?></a></td>
                     <td><?= $contact->email; ?></td>
                     <td><?= $contact->address; ?></td>
                     <td><?= $contact->postalcode ?></td>
                     <td><?= $contact->city ?></td>
                     <td><?= $contact->cell_phone; ?></td>
-                    <td></td>
+                    <td>
+                        <a href="<?=PROOT?>contacts/edit/<?=$contact->id?>" class="btn btn-xs btn-info">
+                            <i class="glyphicin glyphicon-pencil"></i> Edit
+                        </a>
+                        <a href="<?=PROOT?>contacts/delete/<?=$contact->id?>" class="btn btn-xs btn-danger" onclick="if(!confirm('Are you Sure?')){return false}">
+                            <i class="glyphicon glyphicon-remove"></i> Delete
+                        </a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

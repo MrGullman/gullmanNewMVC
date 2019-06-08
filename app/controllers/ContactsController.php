@@ -18,11 +18,12 @@ class ContactsController extends Controller {
         $contact = new Contacts();
         $validation = new Validate();
         if($_POST){
-            
+
             $contact->assign($_POST);
             $validation->check($_POST, Contacts::$addValidation);
             if($validation->passed()){
                 $contact->user_id = currentUser()->id;
+                // $contact->deleted = 0;
                 $contact->save();
                 Router::redirect('contacts');
             }
@@ -32,6 +33,57 @@ class ContactsController extends Controller {
         $this->view->postAction = PROOT . 'contacts' . DS . 'add';
         $this->view->render('contacts/add');
     }
+
+    public function editAction($id){
+        $contact = $this->ContactsModel->findByIdAndUserId((int)$id, currentUser()->id);
+
+        if(!$contact) Router::redirect('contacts');
+
+        $validation = new Validate();
+
+        if($_POST){
+            $contact->assign($_POST);
+            $validation->check($_POST, Contacts::$addValidation);
+            if($validation->passed()){
+                $contact->save();
+                Router::redirect('contacts');
+            }
+        }
+
+        $this->view->displayErrors = $validation->displayErrors();
+        $this->view->contact = $contact;
+        $this->view->postAction = PROOT . 'contacts' . DS . 'edit' . DS . currentUser()->id;
+        $this->view->render('contacts/edit');
+
+    }
+
+    public function detailsAction($id){
+
+        $contact = $this->ContactsModel->findByIdAndUserId((int)$id, currentUser()->id);
+        if(!$contact){
+            Router::redirect('contacts');
+        }
+
+        $this->view->contact = $contact;
+        $this->view->userId = $id;
+        $this->view->render('contacts/details');
+    }
+
+    public function deleteAction($id){
+        $contact = $this->ContactsModel->findByIdAndUserId((int)$id, currentUser()->id);
+        // dnd($contact);
+        if($contact){
+            $contact->delete();
+        }
+        Router::redirect('contacts');
+        // if(!$contact){
+        //     Router::redirect('contacts');
+        // }else{
+        //     $contact->delete();
+        //     Router::redirect('contacts');
+        // }
+    }
+
 }
 
 

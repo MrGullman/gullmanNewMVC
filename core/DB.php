@@ -12,23 +12,16 @@ class DB {
     private function __construct(){
 
         $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHAR;
-        // $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'); // Optional for testing
-        // $options = array(
-        //     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-        // );
-        // $options = array(
-        //     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'
-        //     // PDO::ATTR_PERSISTENT => true,
-        //     // PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        // );
+         $options = array(
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+            PDO::ATTR_PERSISTENT => true,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_EMULATE_PREPARES, false
+        );
 
         try {
-            $this->_pdo = new PDO($dsn, DB_USER, DB_PASS);
-            // $this->_pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC ); // Optional for testing
-            // $this->_pdo->exec("SET CHARACTER SET utf8mb4");  // Optional for testing
-            // $this->_pdo->exec("set names utf8mb4");  // Optional for testing
-            // $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            // $this->_pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            $this->_pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+
         } catch (PDOException $e) {
             die($e->getMessage());
         }
@@ -42,7 +35,7 @@ class DB {
         return self::$_instance;
     }
 
-    public function query($sql, $params = []){
+    public function query($sql, $params = [], $class = []){
 
         $this->_error = false;
         if($this->_query = $this->_pdo->prepare($sql)){
@@ -55,7 +48,11 @@ class DB {
             }
 
             if($this->_query->execute()){
-                $this->_result = $this->_query->fetchAll(PDO::FETCH_OBJ);
+                if($class){
+                    $this->_result = $this->_query->fetchAll(PDO::FETCH_CLASS, $class);
+                }else{
+                    $this->_result = $this->_query->fetchAll(PDO::FETCH_OBJ);
+                }
                 $this->_count = $this->_query->rowCount();
                 $this->_lastInsertID = $this->_pdo->lastInsertId();
             }else{
@@ -66,7 +63,7 @@ class DB {
         return $this;
     }
 
-    protected function _read($table, $params = []){
+    protected function _read($table, $params = [], $class){
         $conditionString = '';
         $bind = [];
         $order = '';
@@ -104,7 +101,7 @@ class DB {
 
         $sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
 
-        if($this->query($sql, $bind)){
+        if($this->query($sql, $bind, $class)){
             if(!count($this->_result)) return false;
 
             return true;
@@ -114,15 +111,15 @@ class DB {
         return false;
     }
 
-    public function find($table, $params = []){
-        if($this->_read($table, $params)){
+    public function find($table, $params = [], $class = false){
+        if($this->_read($table, $params, $class)){
             return $this->results();
         }
         return false;
     }
 
-    public function findFirst($table, $params = []){
-        if($this->_read($table, $params)){
+    public function findFirst($table, $params = [], $class = false){
+        if($this->_read($table, $params, $class)){
             return $this->first();
         }
         return false;

@@ -6,6 +6,8 @@ class Users extends Model {
     private $_sessionName;
     private $_cookieName;
 
+    public $id, $username, $email, $password, $fname, $lname, $acl, $deleted = 0;
+
     public static $currentLoggedInUser = null;
 
     public function __construct($user = '') {
@@ -19,9 +21,9 @@ class Users extends Model {
 
         if($user != ''){
             if(is_int($user)){
-                $u = $this->_db->findFirst('users', ['conditions' =>'id = ?', 'bind' => [$user]]);
+                $u = $this->_db->findFirst('users', ['conditions' =>'id = ?', 'bind' => [$user]], 'Users');
             }else{
-                $u = $this->_db->findFirst('users', ['conditions' => 'username = ?', 'bind' => [$user]]);
+                $u = $this->_db->findFirst('users', ['conditions' => 'username = ?', 'bind' => [$user]], 'Users');
             }
 
             if($u){

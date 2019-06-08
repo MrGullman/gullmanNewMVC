@@ -5,7 +5,7 @@ define('DEBUG', true);
 
 // Database Settings
 define('DB_HOST', '127.0.0.1'); // Database host ***Use IP address to avoid DNS lookup.
-define('DB_NAME', 'gmvc'); // Database name.
+define('DB_NAME', 'gullmanmvc'); // Database name.
 define('DB_USER', 'root');  // Database user.
 define('DB_PASS', '1234');  // Database password.
 define('DB_CHAR', 'utf8'); // Database charset.
